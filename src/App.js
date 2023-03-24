@@ -1,11 +1,12 @@
-import './App.css'
+import "./App.css";
+
+// Context Api
+import { useAuthContext } from "./hooks/useAuthContext";
 
 function App() {
-  return (
-    <div className="App">
+  const { authIsReady, user } = useAuthContext();
 
-    </div>
-  );
+  return <div className="App">{authIsReady && <div></div>}</div>;
 }
 
-export default App
+export default App;
