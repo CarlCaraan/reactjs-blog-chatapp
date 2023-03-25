@@ -13,6 +13,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Project from "./pages/project/ProjectDetails";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -21,8 +22,12 @@ function App() {
     <div className="App">
       {authIsReady && (
         <BrowserRouter>
+          {/* Sidebar */}
+          <Sidebar />
           <div className="container">
+            {/* Navigation */}
             <Navbar />
+
             {/* All Routes */}
             <Switch>
               <Route exact path="/">
