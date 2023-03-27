@@ -12,7 +12,7 @@ function Login() {
 
   const { error, isPending, login } = useLogin();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(email, password, displayName, thumbnail);
     login(email, password);
