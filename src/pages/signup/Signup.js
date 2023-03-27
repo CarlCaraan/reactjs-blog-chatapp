@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+// Custom Hooks
+import { useSignup } from "../../hooks/useSignup";
+
 // Styles
 import "./Signup.css";
 
@@ -9,6 +12,13 @@ function Signup() {
   const [displayName, setDiplayName] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailError, setThumbnailError] = useState(null);
+  const { error, isPending, signup } = useSignup();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(email, password, displayName, thumbnail);
+    signup(email, password, displayName, thumbnail);
+  };
 
   const handleFileChange = (e) => {
     setThumbnail(null);
@@ -33,11 +43,6 @@ function Signup() {
     console.log("thumbnnail updated");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(email, password, displayName, thumbnail);
-  };
-
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
@@ -60,7 +65,7 @@ function Signup() {
         />
       </label>
       <label>
-        <span>Diplay Name:</span>
+        <span>Display Name:</span>
         <input
           type="text"
           id="name"
@@ -73,7 +78,13 @@ function Signup() {
         <input type="file" id="image" onChange={handleFileChange} />
         {thumbnailError && <div className="error">{thumbnailError}</div>}
       </label>
-      <button className="btn">Sign up</button>
+      {!isPending && <button className="btn">Sign up</button>}
+      {isPending && (
+        <button className="btn" disabled>
+          Loading...
+        </button>
+      )}
+      {error && <div className="error">{error}</div>}
     </form>
   );
 }
