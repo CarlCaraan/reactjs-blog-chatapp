@@ -23,7 +23,7 @@ function App() {
       {authIsReady && (
         <BrowserRouter>
           {/* Sidebar */}
-          <Sidebar />
+          {user && <Sidebar />}
           <div className="container">
             {/* Navigation */}
             <Navbar />
