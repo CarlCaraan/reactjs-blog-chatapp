@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import { useHistory } from "react-router-dom";
 
 // Styles
 import "./Create.css";
@@ -8,6 +9,7 @@ import "./Create.css";
 import { useCollection } from "../../hooks/useCollection";
 import { timestamp } from "../../firebase/config";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useFirestore } from "../../hooks/useFirestore";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -20,6 +22,8 @@ function Create() {
   const { documents } = useCollection("users");
   const [users, setUsers] = useState([]);
   const { user } = useAuthContext();
+  const { addDocument, response } = useFirestore("projects");
+  const history = useHistory();
 
   // Form field values
   const [name, setName] = useState("");
@@ -39,7 +43,7 @@ function Create() {
   }, [documents]);
 
   // Submit Function
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
 
@@ -76,11 +80,15 @@ function Create() {
       assignedUsersList,
     };
 
-    console.log(project);
+    // console.log(project);
     // console.log(assignedUsers);
     // console.log(createdBy);
-
     // console.log(name, details, dueDate, category.value, assignedUsers);
+
+    await addDocument(project);
+    if (!response.error) {
+      history.push("/");
+    }
   };
 
   return (
