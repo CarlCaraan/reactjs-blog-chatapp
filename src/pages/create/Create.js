@@ -6,6 +6,8 @@ import "./Create.css";
 
 // Custom Hooks
 import { useCollection } from "../../hooks/useCollection";
+import { timestamp } from "../../firebase/config";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -17,6 +19,7 @@ const categories = [
 function Create() {
   const { documents } = useCollection("users");
   const [users, setUsers] = useState([]);
+  const { user } = useAuthContext();
 
   // Form field values
   const [name, setName] = useState("");
@@ -35,6 +38,7 @@ function Create() {
     }
   }, [documents]);
 
+  // Submit Function
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError(null);
@@ -48,7 +52,35 @@ function Create() {
       return;
     }
 
-    console.log(name, details, dueDate, category.value, assignedUsers);
+    const createdBy = {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid,
+    };
+
+    const assignedUsersList = assignedUsers.map((u) => {
+      return {
+        displayName: u.value.displayName,
+        photoURL: u.value.photoURL,
+        id: u.value.id,
+      };
+    });
+
+    const project = {
+      name,
+      details,
+      dueDate: timestamp.fromDate(new Date(dueDate)),
+      category: category.value,
+      comment: [],
+      createdBy,
+      assignedUsersList,
+    };
+
+    console.log(project);
+    // console.log(assignedUsers);
+    // console.log(createdBy);
+
+    // console.log(name, details, dueDate, category.value, assignedUsers);
   };
 
   return (
