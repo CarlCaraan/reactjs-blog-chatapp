@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
 // Styles
 import "./Create.css";
+
+// Custom Hooks
+import { useCollection } from "../../hooks/useCollection";
 
 const categories = [
   { value: "development", label: "Development" },
@@ -12,6 +15,9 @@ const categories = [
 ];
 
 function Create() {
+  const { documents } = useCollection("users");
+  const [users, setUsers] = useState([]);
+
   // Form field values
   const [name, setName] = useState("");
   const [details, setDetails] = useState("");
@@ -20,9 +26,18 @@ function Create() {
   const [assignedUsers, setAssignedUsers] = useState([]);
   // const [formError, setFormError] = useState(null);
 
+  useEffect(() => {
+    if (documents) {
+      const options = documents.map((user) => {
+        return { value: user, label: user.displayName };
+      });
+      setUsers(options);
+    }
+  }, [documents]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(name, details, dueDate, category.value);
+    console.log(name, details, dueDate, category.value, assignedUsers);
   };
 
   return (
@@ -65,6 +80,11 @@ function Create() {
         <label>
           <span>Assign to:</span>
           {/* Select Here */}
+          <Select
+            onChange={(option) => setAssignedUsers(option)}
+            options={users}
+            isMulti
+          />
         </label>
         <button className="btn">Add Project</button>
       </form>
