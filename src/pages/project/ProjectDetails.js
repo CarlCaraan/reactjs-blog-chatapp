@@ -7,6 +7,7 @@ import { useDocument } from "../../hooks/useDocument";
 // Styles and components
 import "./ProjectDetails.css";
 import ProjectSummary from "./ProjectSummary";
+import ProjectComments from "./ProjectComments";
 
 function ProjectDetails() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function ProjectDetails() {
   // Loading Template
   if (!document) {
     return (
-      <div class="loader">
+      <div className="loader">
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
             <path
@@ -52,6 +53,7 @@ function ProjectDetails() {
   return (
     <div className="project-details">
       <ProjectSummary project={document} />
+      <ProjectComments />
     </div>
   );
 }
