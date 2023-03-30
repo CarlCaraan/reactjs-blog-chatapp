@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 // Custom Hooks
 import { useDocument } from "../../hooks/useDocument";
 
-// Styles
+// Styles and components
 import "./ProjectDetails.css";
+import ProjectSummary from "./ProjectSummary";
 
 function ProjectDetails() {
   const { id } = useParams();
@@ -50,7 +51,7 @@ function ProjectDetails() {
 
   return (
     <div className="project-details">
-      <h1>{document.name}</h1>
+      <ProjectSummary project={document} />
     </div>
   );
 }
