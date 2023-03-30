@@ -9,11 +9,16 @@ export const useDocument = (collection, id) => {
   useEffect(() => {
     const ref = projectFirestore.collection(collection).doc(id);
 
-    // OnSnapshot
+    // OnSnapshot function
     const unsubsribe = ref.onSnapshot(
       (snapshot) => {
-        setDocument({ ...snapshot.data(), id: snapshot.id });
-        setError(null);
+        // Check if url ID doesn't exist
+        if (snapshot.data()) {
+          setDocument({ ...snapshot.data(), id: snapshot.id });
+          setError(null);
+        } else {
+          setError("404 - Content doesn't exist");
+        }
       },
       (err) => {
         console.log(err.message);

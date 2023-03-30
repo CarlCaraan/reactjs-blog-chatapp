@@ -48,7 +48,11 @@ function ProjectDetails() {
     );
   }
 
-  return <div></div>;
+  return (
+    <div className="project-details">
+      <h1>{document.name}</h1>
+    </div>
+  );
 }
 
 export default ProjectDetails;
