@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { projectFirestore } from "../../../../Documents/GitHub/reactjs-finance-tracker/src/firebase/config";
+import { projectFirestore } from "../firebase/config";
 
 export const useDocument = (collection, id) => {
   const [document, setDocument] = useState(null);
@@ -12,10 +12,7 @@ export const useDocument = (collection, id) => {
     // OnSnapshot
     const unsubsribe = ref.onSnapshot(
       (snapshot) => {
-        setDocument({
-          ...snapshot.data(),
-          id: snapshot.id,
-        });
+        setDocument({ ...snapshot.data(), id: snapshot.id });
         setError(null);
       },
       (err) => {
@@ -24,6 +21,7 @@ export const useDocument = (collection, id) => {
       }
     );
 
+    // Clean up function
     return () => {
       unsubsribe();
     };
