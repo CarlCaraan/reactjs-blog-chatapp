@@ -5,11 +5,11 @@ import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
 
 // Styles and components
-import "./ProjectDetails.css";
+import "./Project.css";
 import ProjectSummary from "./ProjectSummary";
 import ProjectComments from "./ProjectComments";
 
-function ProjectDetails() {
+function Project() {
   const { id } = useParams();
   const { error, document } = useDocument("projects", id);
 
@@ -58,4 +58,4 @@ function ProjectDetails() {
   );
 }
 
-export default ProjectDetails;
+export default Project;
