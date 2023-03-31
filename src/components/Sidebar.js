@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 // Styles and Components
@@ -14,11 +14,13 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-content">
-        <div className="user">
-          {/* Avatar and username here later */}
-          <Avatar src={user.photoURL} />
-          <p>Hey {user.displayName}</p>
-        </div>
+        <Link to="/">
+          <div className="user">
+            {/* Avatar and username here later */}
+            <Avatar src={user.photoURL} />
+            <p>Hey {user.displayName}</p>
+          </div>
+        </Link>
         <nav className="links">
           <ul>
             <li>
