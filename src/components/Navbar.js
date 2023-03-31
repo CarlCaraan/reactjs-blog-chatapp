@@ -17,8 +17,10 @@ export default function Navbar() {
     <div className="navbar">
       <ul>
         <li className="logo">
-          <img src={Temple} alt="brand-logo" />
-          <span>Blogify</span>
+          <Link className="logo-wrapper" to="/">
+            <img src={Temple} alt="brand-logo" />
+            <span>BLOGIFY</span>
+          </Link>
         </li>
         {!user && (
           <Fragment>
