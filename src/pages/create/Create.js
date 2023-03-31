@@ -75,7 +75,7 @@ function Create() {
       details,
       dueDate: timestamp.fromDate(new Date(dueDate)),
       category: category.value,
-      comment: [],
+      comments: [],
       createdBy,
       assignedUsersList,
     };
