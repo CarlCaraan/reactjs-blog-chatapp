@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 
 const filterList = [
   "all",
@@ -9,12 +8,10 @@ const filterList = [
   "marketing",
   "sales",
 ];
-function ProjectFilter() {
-  const [currentFilter, setCurrentFilter] = useState("all");
-
+function ProjectFilter({ currentFilter, changeFilter }) {
   const handleClick = (newFilter) => {
     console.log(newFilter);
-    setCurrentFilter(newFilter);
+    changeFilter(newFilter);
   };
   return (
     <div className="project-filter">
