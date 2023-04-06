@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Styles
 import "./Create.css";
@@ -23,7 +23,7 @@ function Create() {
   const [users, setUsers] = useState([]);
   const { user } = useAuthContext();
   const { addDocument, response } = useFirestore("projects");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Form field values
   const [name, setName] = useState("");
@@ -87,7 +87,7 @@ function Create() {
 
     await addDocument(project);
     if (!response.error) {
-      history.push("/");
+      navigate("/");
     }
   };
 
